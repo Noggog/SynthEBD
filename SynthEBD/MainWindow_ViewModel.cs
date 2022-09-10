@@ -8,6 +8,7 @@ public class MainWindow_ViewModel : VM
     private readonly SaveLoader _saveLoader;
     private readonly VM_Settings_General _settingsGeneral;
     private readonly VM_NavPanel _navPanel;
+    private readonly MainWindow _mainWindow;
 
     public DisplayedItemVm Display { get; }
     public VM_RunButton RunButtonVM { get; }
@@ -23,11 +24,13 @@ public class MainWindow_ViewModel : VM
         VM_NavPanel navPanel,
         VM_RunButton runButton,
         Paths paths,
+        MainWindow mainWindow,
         PatcherEnvironmentProvider patcherEnvironmentProvider)
     {
         _saveLoader = saveLoader;
         _settingsGeneral = settingsGeneral;
         _navPanel = navPanel;
+        _mainWindow = mainWindow;
         Logger.Instance = logger;
         Display = display;
         StatusBarVM = statusBar;
@@ -45,7 +48,7 @@ public class MainWindow_ViewModel : VM
         // Load settings
         _saveLoader.Reinitialize();
 
-        Application.Current.MainWindow.Closing += new CancelEventHandler(MainWindow_Closing);
+        _mainWindow.Closing += new CancelEventHandler(MainWindow_Closing);
 
         ValidateEval();
     }
